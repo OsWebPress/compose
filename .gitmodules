@@ -1,0 +1,9 @@
+[submodule "backend/backend"]
+	path = backend/backend
+	url = git@github.com:OsWebPress/backend.git
+[submodule "frontend/press"]
+	path = frontend/press
+	url = git@github.com:OsWebPress/press.git
+[submodule "root"]
+	path = root
+	url = git@github.com:OsWebPress/starterRoot.git

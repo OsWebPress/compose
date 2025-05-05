@@ -1,0 +1,7 @@
+{
+	"root": "/app/root",
+	"database_url": "postgres://dbuser:vault_key@database:5432/vault_db",
+	"jwt_secret": "secret123",
+	"username": "user",
+	"password": "password123"
+}
