@@ -6,7 +6,7 @@ services:
     image: press-backend:${BE_VERSION}
     container_name: backend-rust
     volumes:
-      - "/Users/obult/Documents/projects2025/ospress/root:/app/root"
+      - "${ROOT_DIR}:/app/root"
     depends_on:
       - database
   database:
@@ -20,8 +20,8 @@ services:
       POSTGRES_DB: ${PG_DB}
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     image: press-frontend:${FE_VERSION}
     container_name: frontend-vue
     ports:

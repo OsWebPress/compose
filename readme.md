@@ -8,4 +8,5 @@
 	- [ ] password
 - [ ] edit root .env
 	- [ ] Host port
+	- [ ] edit Root dir for docker bind
 	- [ ] Don't touch anything else here!
