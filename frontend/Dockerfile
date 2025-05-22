@@ -14,8 +14,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
 # Copy project files and install dependencies
-COPY frontend/press/ /app/
-COPY .env /app/.env
+COPY press/ /app/
 
 RUN pnpm install
 RUN pnpm build-only
@@ -27,7 +26,7 @@ FROM nginx:stable-alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy your custom Nginx config (optional but recommended)
-COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built frontend from builder
 COPY --from=builder /app/dist /usr/share/nginx/html
