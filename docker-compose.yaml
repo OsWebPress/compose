@@ -7,7 +7,7 @@ services:
     image: press-backend:${BE_VERSION}
     container_name: backend-rust-${PROJECT_NAME}
     volumes:
-      - "${ROOT_DIR}:/app/root"
+      - "./root:/app/root"
     depends_on:
       - database
     restart: unless-stopped
