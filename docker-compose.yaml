@@ -24,15 +24,15 @@ services:
   frontend:
     build:
       context: ./frontend
-      # dockerfile: frontend/Dockerfile
     pull_policy: never
     image: press-frontend:${VERSION}
     container_name: fe-${PROJECT_NAME}
     ports:
       - "${HOST_PORT}:80"
+    volumes:
+      - "./root:/app/root"
     depends_on:
       - backend
     restart: unless-stopped
-
 volumes:
   pgdata:
