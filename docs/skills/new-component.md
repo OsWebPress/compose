@@ -69,3 +69,38 @@ Some inner content here
 - Do not put components in `component/makedown/` — that subdirectory is reserved for makedown token renderers.
 - If the component needs images, reference them as `/api/images/filename.jpg`.
 - The props.body field is populated with the component slot as string.
+
+## Using other remote components inside a remote component
+
+`LoadComponent` and `Makedown` are registered globally in the app, so they are available in any remote component's template without importing.
+
+### Loading another remote component
+
+Use `<LoadComponent>` to render any other remote component by path. Props are passed through normally:
+
+```vue
+<template>
+  <div>
+    <LoadComponent _component="makedown/richText" :body="someText" />
+    <LoadComponent _component="MyOtherComponent" title="Hello" />
+  </div>
+</template>
+```
+
+The `_component` value is the path under `root/component/` without the `.vue` extension. `LoadComponent` fetches and caches the component asynchronously — it renders nothing until the remote component is loaded.
+
+Props other than `_component` fall through to the loaded component via `$attrs`, so they are received as normal props by the inner component.
+
+### Rendering markdown content
+
+Use `<Makedown>` to parse and render a string of makedown content, including all registered tokens and Vue component tags:
+
+```vue
+<template>
+  <div>
+    <Makedown :content="markdownString" />
+  </div>
+</template>
+```
+
+This is useful when a component holds a body of text that should support headings, lists, inline formatting, and embedded components — for example a card component whose content comes from a prop.
