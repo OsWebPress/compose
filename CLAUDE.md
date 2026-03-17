@@ -27,6 +27,7 @@ Skills (reusable prompts for common tasks) live in `docs/skills/`. Reference one
 
 - [new-component](docs/skills/new-component.md) — add a Vue component to `root/component/`
 - [new-page](docs/skills/new-page.md) — add a markdown page to `root/carbon/`
+- [style-website](docs/skills/style-website.md) — generate a site style guide at `root/style-guide.md`
 
 ## Basic house rules
 - Do not touch git!

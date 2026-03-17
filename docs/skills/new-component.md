@@ -91,6 +91,22 @@ The `_component` value is the path under `root/component/` without the `.vue` ex
 
 Props other than `_component` fall through to the loaded component via `$attrs`, so they are received as normal props by the inner component.
 
+### Full-bleed layout
+
+`FullBleed` is a remote layout utility that breaks out of the page margin set by `RenderView` (the left padding applied to all page content). Use it when a component needs to span the full viewport width.
+
+```vue
+<template>
+  <LoadComponent _component="FullBleed">
+    <div class="bg-stone-100 p-4">
+      <!-- content here spans full width -->
+    </div>
+  </LoadComponent>
+</template>
+```
+
+Do not write the negative-margin escape classes (`w-screen -ml-3rem md:-ml-6rem ...`) directly in a component — use `FullBleed` instead so there is one source of truth.
+
 ### Rendering markdown content
 
 Use `<Makedown>` to parse and render a string of makedown content, including all registered tokens and Vue component tags:

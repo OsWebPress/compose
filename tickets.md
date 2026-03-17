@@ -46,16 +46,16 @@ Currently the public site's navigation component (`navigation/default.vue`) load
 
 ### FE-04 · Styling skill — AI-assisted site style generation
 
-**Status:** open
+**Status:** done
 Add a reusable skill at `docs/skills/style-website.md` that lets an AI assistant apply a consistent visual style across makedown token components and content components.
 
 **Guidance:** A skill file is a markdown prompt template. Look at the existing skills in `docs/skills/` for format. The output of this skill should be a clear design doc which can be given to an AI as a prompt for creating the basic makedown objects based on the default ones but with styling based on this design doc.
 
 **Subtasks:**
-- [ ] Define what "a style" means in this context (fonts, colours, spacing, base token look)
-- [ ] Write the skill prompt with clear instructions and expected outputs
+- [x] Define what "a style" means in this context (fonts, colours, spacing, base token look)
+- [x] Write the skill prompt with clear instructions and expected outputs
 - [ ] Test the skill on a sample style (e.g. minimalist dark theme)
-- [ ] Document any Tailwind constraints or gotchas
+- [x] Document any Tailwind constraints or gotchas
 
 ---
 
@@ -63,7 +63,7 @@ Add a reusable skill at `docs/skills/style-website.md` that lets an AI assistant
 
 ### COMP-01 · RichText component — test with headers
 
-**Status:** open
+**Status:** done
 The `makedown/richText.vue` component handles inline formatting (bold, italic, highlight). It has not been verified inside header tokens (`h1`–`h3`). A header like `# Hello **world**` should render with correct inline styles.
 
 **Subtasks:**
