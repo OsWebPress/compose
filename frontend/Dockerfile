@@ -9,14 +9,14 @@
 FROM node:23-alpine AS builder
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.28.2 --activate
 
 WORKDIR /app
 
 # Copy project files and install dependencies
 COPY press/ /app/
 
-RUN pnpm install
+RUN CI=true pnpm install
 RUN pnpm build-only
 
 # Stage 2: Serve with Nginx
