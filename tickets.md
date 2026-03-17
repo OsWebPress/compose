@@ -21,7 +21,7 @@ The file tree in `EditorView` collapses or is pushed out of view when a file has
 
 ### FE-02 · Editor legend redesign
 
-**Status:** open
+**Status:** done
 `LegendDirectory.vue` and `LegendMenu.vue` are functional but visually rough. Goal is a cleaner, more intuitive sidebar that makes the editing experience feel polished.
 
 **Subtasks:**
@@ -36,7 +36,7 @@ The file tree in `EditorView` collapses or is pushed out of view when a file has
 
 ### FE-03 · Separate admin navigation from site navigation
 
-**Status:** open
+**Status:** done
 Currently the public site's navigation component (`navigation/default.vue`) loads inside the admin area too. Admin pages should have their own minimal nav; the site nav should only appear on public routes.
 
 **Subtasks:**

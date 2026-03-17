@@ -24,3 +24,7 @@
 
 [ ] make a system where you can have an set of editor components to easily edit components with a gui inline inside the editor.
 
+## new not included in tickets yet issues
+[ ] when you token expires automatically get a new one or show login again so you dont have to logout and cant save anymore, can even do it on save if it is not logged in try to log in again
+
+
