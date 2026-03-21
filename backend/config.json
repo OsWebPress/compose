@@ -3,5 +3,5 @@
 	"database_url": "postgres://dbuser:vault_key@database:5432/vault_db",
 	"jwt_secret": "secret123",
 	"username": "user",
-	"password": "password123"
+	"password": "pw"
 }

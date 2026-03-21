@@ -20,6 +20,14 @@
 [ ] upgrade frontend to vite 8
 [ ] fix gallary view on frontend admin to also support directories /create and view.
 
+[ ] update users page to match the styling
+
+## Backend tasks next big upgrade
+[ ] streamline the root access by making it all one endpoint only and simplify the whole backend
+[ ] security make a way to set editable roots for users so they can only edit those roots.
+[ ] make users have a role which gives them access to content roots and other functions if needed
+[ ] create a role system (discord like?)
+
 ## long term wishes
 
 [ ] make a system where you can have an set of editor components to easily edit components with a gui inline inside the editor.

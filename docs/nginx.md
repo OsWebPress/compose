@@ -38,5 +38,6 @@ Both locations are marked `internal` — they cannot be requested directly by cl
 ## Notes
 
 - `client_max_body_size 32M` — covers image uploads
-- `proxy_no_cache 1` / `proxy_cache_bypass 1` on all proxy and file locations — caching is intentionally disabled for development; can be enabled per-location for production
+- File locations set `Cache-Control: public, max-age=900` (15 min) for pages/components and `max-age=3600` (1 hour) for images
+- `proxy_no_cache 1` / `proxy_cache_bypass 1` remain on proxy locations (write operations and ronly reads) — only the file-serving GET path is cached
 - The backend is reachable inside the Docker network as `backend:8080` but is never exposed to the host

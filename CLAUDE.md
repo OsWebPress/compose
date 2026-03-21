@@ -29,6 +29,15 @@ Skills (reusable prompts for common tasks) live in `docs/skills/`. Reference one
 - [new-page](docs/skills/new-page.md) — add a markdown page to `root/carbon/`
 - [style-website](docs/skills/style-website.md) — generate a site style guide at `root/style-guide.md`
 
+## Common commands
+
+| Action | Command |
+|---|---|
+| Rebuild frontend (dev, no cache) | `docker compose up -d --build frontend` |
+| Rebuild backend | `docker compose up -d --build backend` |
+| Rebuild all (dev) | `docker compose up -d --build` |
+| Rebuild all (prod, with caching) | `docker compose -f docker-compose.yaml up -d --build` |
+
 ## Basic house rules
 - Do not touch git!
 - Add an empty newline at the end of files. If you encounter a file without make sure to add this.

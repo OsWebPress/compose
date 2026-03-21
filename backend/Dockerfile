@@ -15,7 +15,6 @@ FROM rust:1.86-slim-bookworm
 # RUN apt install -y libstdc++
 WORKDIR /app
 COPY --from=builder /app/target/release/vault /vault
-COPY config.json config.json
 
 # EXPOSE 8081
 CMD ["/vault", "config.json"]

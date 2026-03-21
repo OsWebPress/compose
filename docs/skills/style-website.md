@@ -61,6 +61,7 @@ For each token below, decide: colour overrides (if any), size, weight, spacing, 
 - [ ] **bold** — same colour as text, or accent colour?
 - [ ] **italic** — colour, any opacity change?
 - [ ] **highlight / inline code** — background chip colour, text colour, border radius
+- [ ] **codeBlock** — multi-line fenced code block; background colour, text colour, border radius, padding, scrollable overflow
 - [ ] **link** — colour, underline style, hover treatment
 - [ ] **blockquote** — left border colour + width, background, text style (italic?)
 - [ ] **horizontal rule** — colour, thickness, margin
@@ -72,16 +73,18 @@ For each token below, decide: colour overrides (if any), size, weight, spacing, 
 - [ ] **image** — rounded corners? Shadow? Max-width constraint?
 - [ ] **backgroundImage** — overlay colour/opacity for text legibility?
 
-### 8. Content Components
-For each existing content component, decide the key visual variables:
+### 8. Content Component Archetypes
 
-- [ ] **ContentCard** — card background, accent strip colour, border style, shadow
-- [ ] **SideImage** — layout proportions, gap, background
-- [ ] **Info** — background colour, icon/border style (informational callout)
-- [ ] **PopOut** — pop-out accent treatment, shadow depth
-- [ ] **WordArt** — gradient or colour treatment for display text
-- [ ] **ImageGrid / MagicGrid** — gap, border radius, hover effect
-- [ ] **CountDown** — digit colour, label colour, container style
+Rather than listing every component by name, define visual archetypes. Any component (existing or future) that shares a pattern inherits its tokens. When creating or restyling a component, identify which archetype it belongs to and apply accordingly.
+
+- [ ] **Card** — components with their own contained background, border, and shadow (e.g. ContentCard, BlogPreview). Decide: background colour, border style/colour, border radius, shadow depth, inner padding.
+- [ ] **Callout** — components that draw attention with an accent treatment (e.g. Info, PopOut, blockquote-like wrappers). Decide: accent colour/position (left border, top strip, full background tint), shadow, background tint.
+- [ ] **Layout wrapper** — full-width or section-level containers that set a background zone (e.g. Section, FullBleed). Decide: available background options, how they interact with the page background, padding above/below content.
+- [ ] **Media grid** — components that arrange images or cards in a grid layout (e.g. ImageGrid, MagicGrid). Decide: gap, border radius on items, hover effect (scale, shadow, overlay).
+- [ ] **Content + image** — components that pair text with a visual side by side (e.g. SideImage). Decide: proportions, gap, whether background is transparent or tinted.
+- [ ] **Listing / feed** — components that render a list of posts or items (e.g. BlogOverview, BlogPreview). Decide: item card style (inherits Card archetype?), date/tag colour and size, spacing between items.
+- [ ] **Display text** — components for decorative or hero-level text (e.g. WordArt). Decide: gradient or solid colour treatment, size scale relative to h1, weight.
+- [ ] **Data / widget** — components that show live or structured data (e.g. CountDown). Decide: digit colour, label colour, container style (inherits Card or is borderless?).
 
 ### 9. Global Tokens (Tailwind Constraints)
 - [ ] Are custom Tailwind colours needed, or will default palette suffice?
@@ -185,28 +188,33 @@ Border radius: ... | Shadow: ... | Max-width: ...
 ### backgroundImage
 Overlay: ...
 
-## Content Components
+## Content Component Archetypes
 
-### ContentCard
-Background: ... | Accent strip: ... | Border: ... | Shadow: ...
+> When creating or restyling any component, identify its archetype below and apply those tokens. A component may combine archetypes (e.g. a listing item that is also a card).
 
-### SideImage
-Background: ... | Gap: ...
+### Card
+Background: ... | Border: ... | Border radius: ... | Shadow: ... | Inner padding: ...
 
-### Info
-Background: ... | Border: ... | Icon: ...
+### Callout
+Accent colour: ... | Accent position: (left border / top strip / full tint) | Background tint: ... | Shadow: ...
 
-### PopOut
-Shadow: ... | Accent: ...
+### Layout wrapper
+Available backgrounds: ... | Content padding (vertical): ... | Interaction with page background: ...
 
-### WordArt
-Treatment: ...
+### Media grid
+Gap: ... | Item border radius: ... | Hover effect: ...
 
-### ImageGrid / MagicGrid
-Gap: ... | Border radius: ... | Hover: ...
+### Content + image
+Proportions: ... | Gap: ... | Background: ...
 
-### CountDown
-Digit colour: ... | Label colour: ... | Container: ...
+### Listing / feed
+Item style: (inherits Card / custom) | Date colour: ... | Tag colour: ... | Item gap: ...
+
+### Display text
+Treatment: (gradient / solid) | Colours: ... | Size relative to h1: ... | Weight: ...
+
+### Data / widget
+Container style: (inherits Card / borderless) | Primary value colour: ... | Label colour: ...
 
 ## Tailwind Constraints & Notes
 <!-- Anything an AI should know before writing Tailwind classes for this site -->

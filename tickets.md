@@ -94,7 +94,7 @@ A reusable `Resume.vue` component in `root/component/` for displaying a structur
 
 ### COMP-03 · Offset / ReverseOffset layout component
 
-**Status:** open
+**Status:** done
 There are likely repeated offset-layout patterns across content pages. Extract this into a reusable `Offset.vue` (and optionally `ReverseOffset.vue`) that other remote components can load as a sub-component.
 
 > **Note:** Validate first whether nesting remote components introduces noticeable lag or fetch overhead before committing to this approach. The concern was already flagged in Tasks.md.
@@ -110,7 +110,7 @@ There are likely repeated offset-layout patterns across content pages. Extract t
 
 ### COMP-04 · Blog listing component
 
-**Status:** open
+**Status:** done
 A `Blog.vue` component that fetches a directory listing from a configured backend path and renders a grid of post previews (title, date, excerpt).
 
 **Guidance:** The frontend can list files via `GET /api/<path>` which nginx serves from disk. A directory under `root/carbon/blog/` would work well. Each `.md` file is a post; the component reads its first few lines for the preview.
@@ -135,27 +135,27 @@ At the bottom of the preview there will be a read on link. which leads to the sp
 
 ### INFRA-01 · Automatic secrets setup for deployment
 
-**Status:** open
+**Status:** done
 Currently `backend/config.json` requires manual edits for `PG_KEY`, `jwt_secret`, username, and password before the stack can run. This friction makes first-time deploys error-prone.
 
 **Subtasks:**
-- [ ] Create a `setup.sh` (or Makefile target) that prompts for credentials and writes `config.json` and a `.env` file
-- [ ] Document the secret variables in a `.env.example`
-- [ ] Optionally support Docker secrets or environment-variable overrides so `config.json` need not be committed
-- [ ] Update the README with the new setup flow
+- [x] Create a `setup.sh` (or Makefile target) that prompts for credentials and writes `config.json` and a `.env` file
+- [x] Document the secret variables — dev `.env` committed with defaults, `setup.sh` handles prod
+- [x] `config.json` no longer baked into image — mounted as volume so secrets stay out of image layers
+- [x] Update the README with the new setup flow
 
 ---
 
 ### INFRA-02 · Streamlined project setup
 
-**Status:** open
+**Status:** done
 Getting the project running from a fresh clone should be a one-command experience. Currently there are manual steps around config files, the Docker network, and initial content.
 
 **Subtasks:**
-- [ ] List all steps currently needed to go from clone to running site
-- [ ] Automate as many as possible in a setup script (builds on INFRA-01)
-- [ ] Seed a minimal `root/` with working pages and components so the site is not blank on first run
-- [ ] Add a `README.md` quickstart section that covers prerequisites, setup, and first login
+- [x] List all steps currently needed to go from clone to running site
+- [x] Automate as many as possible in a setup script (builds on INFRA-01)
+- [x] `root/` already has working pages and components — not blank on first run
+- [x] Add a `README.md` quickstart section that covers prerequisites, setup, and first login
 
 ---
 
@@ -185,6 +185,43 @@ Build the site content for indented.dev.
 - [ ] Projects / blog section (can reuse the Blog component from COMP-04 once ready)
 - [ ] Set up navigation for all sections
 - [ ] Deploy and verify
+
+---
+
+## Parser
+
+### PARSE-02 · Bug: PascalCase component pattern fires inside code spans
+
+**Status:** open
+
+The PascalCase self-closing component pattern (`/<[A-Z][^\s>]*[^>]*\/>/`) matches anywhere in the content string. This means a tag like `<MyCard />` written inside a backtick code span (intended as an inline code example) is resolved as a real component instead of being rendered as literal text. The backtick/highlight token is handled by `richText` inline, but the component pattern fires at the parser level before `richText` ever sees the content.
+
+**Fix:** Code spans (backtick-delimited content) should be opaque to the parser — tokens inside them must not be matched. This requires either: (a) a pre-pass that strips or masks code span content before the main regex runs, or (b) a negative lookbehind/lookahead in the component patterns to exclude matches inside backticks. Option (a) is likely cleaner given how `PrefixMatcher` is structured.
+
+**Workaround:** Avoid placing self-closing PascalCase tags inside backticks in content. Describe the tag name as plain text instead (e.g. "the tag `MyCard`" rather than `` `<MyCard />` ``).
+
+**Subtasks:**
+- [ ] Confirm the issue in `PrefixMatcher.ts` (component pattern fires before richText processes backticks)
+- [ ] Decide on fix approach: pre-pass masking vs. regex exclusion
+- [ ] Implement and test — verify component tags in prose still resolve correctly
+- [ ] Verify the same issue does not affect block code (triple backtick) — likely already safe since the codeBlock token consumes the whole block first
+
+---
+
+### PARSE-01 · Bug: List item pattern matches mid-line asterisks
+
+**Status:** done
+
+The unordered list token pattern `/ ?[-*+] /` is not anchored to line starts. The `PrefixMatcher` scans the full content string, so `* ` can fire anywhere — including on the closing `**` of a bold token followed by a space (e.g. `**makedown** text`). This splits the paragraph mid-sentence: the text before the match loses its closing `**` and the remainder becomes an unordered list item body, showing a stray bullet dot in the rendered output. The same issue affects `*italic* ` and in principle any `[-*+]` character followed by a space anywhere in prose.
+
+**Fix:** Anchor the list item patterns (`/ ?[-*+] /` and `/\d+\. /`) so they only match at the start of a line. This requires either a lookbehind (`(?:^|\n)`) in the regex or a post-match position check in `PrefixMatcher.scanString`. The `findEnd` and `findBody` helpers may need a small adjustment to account for any leading newline included in the match.
+
+**Subtasks:**
+- [ ] Confirm the root cause in `PrefixMatcher.ts` (pattern fires at any position)
+- [ ] Update the unordered and ordered list patterns in `makedown.ts` to require line-start context
+- [ ] Adjust `findEnd` / `findBody` if the leading newline changes match offsets
+- [ ] Verify bold, italic and highlight still render correctly in prose after the fix
+- [ ] Test list items at the very start of content (no preceding newline edge case)
 
 ---
 
