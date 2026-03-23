@@ -62,4 +62,4 @@ cat > backend/config.json <<EOF
 }
 EOF
 
-echo "Done. Run: docker compose up --build"
+echo "Done. Run: docker compose -f docker-compose.yaml up -d --build"
