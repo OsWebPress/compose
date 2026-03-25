@@ -12,7 +12,8 @@ root/
 ├── component/      # Remote Vue components
 │   └── makedown/   # Token renderer components
 ├── images/         # Static image assets
-└── navigation/     # Navigation config and component
+├── navigation/     # Navigation config and component
+└── favicon.ico     # Site favicon (optional — overrides the built-in default)
 ```
 
 ## carbon/
@@ -50,7 +51,25 @@ Components can use Tailwind classes for styling. They receive props from attribu
 
 These are the rendering components for makedown's built-in tokens. They are not used directly in markdown — the parser resolves them internally. Editing these changes how base markdown syntax renders.
 
-Current tokens: `h1`–`h3`, `text`, `link`, `image`, `backgroundImage`, `blockquote`, `horizontalRule`, `checkbox`, `orderedListItem`, `unorderedListItem`, `comment`.
+Current tokens: `h1`–`h6`, `text`, `link`, `image`, `backgroundImage`, `blockquote`, `horizontalRule`, `checkbox`, `orderedListItem`, `unorderedListItem`, `codeBlock`, `highlight` (inline code), `table`, `comment`.
+
+### Section component
+
+`Section` is a layout component used to wrap page content in a full-bleed colored band. Key props:
+
+- `bg` — Tailwind background color class (e.g. `amber-100`, `sky-100`)
+- `large="true"` — makes the section full viewport height (`min-h-screen`). Default is compact (content height only).
+- `opacity` — controls background opacity (default `1`)
+
+```html
+<Section bg="amber-100">
+  Content here
+</Section>
+
+<Section bg="amber-100" large="true">
+  Full-height section
+</Section>
+```
 
 ## images/
 

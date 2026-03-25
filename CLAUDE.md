@@ -38,6 +38,9 @@ Skills (reusable prompts for common tasks) live in `docs/skills/`. Reference one
 | Rebuild all (dev) | `docker compose up -d --build` |
 | Rebuild all (prod, with caching) | `docker compose -f docker-compose.yaml up -d --build` |
 
+## Session wrap-up
+- When the user says "thanks", "good job", or otherwise signals the end of a session, invoke the `wrap-up` skill.
+
 ## Basic house rules
 - Do not touch git!
 - Add an empty newline at the end of files. If you encounter a file without make sure to add this.

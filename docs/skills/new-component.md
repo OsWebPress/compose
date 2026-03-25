@@ -70,6 +70,27 @@ Some inner content here
 - If the component needs images, reference them as `/api/images/filename.jpg`.
 - The props.body field is populated with the component slot as string.
 
+## Links inside components
+
+For links that point to other pages on the same site, always use `<router-link :to="...">` instead of `<a :href="...">`. This keeps navigation client-side (no full page reload) and makes the site feel instant, matching how the navbar works.
+
+For external links, use a plain `<a>` tag with `target="_blank" rel="noopener noreferrer"`.
+
+When a component can receive either internal or external URLs as a prop, use a computed property to decide:
+
+```vue
+<template>
+  <router-link v-if="isInternal" :to="href">...</router-link>
+  <a v-else :href="href" target="_blank" rel="noopener noreferrer">...</a>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+const props = defineProps({ href: { type: String, required: true } });
+const isInternal = computed(() => props.href.startsWith('/'));
+</script>
+```
+
 ## Using other remote components inside a remote component
 
 `LoadComponent` and `Makedown` are registered globally in the app, so they are available in any remote component's template without importing.
