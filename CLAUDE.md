@@ -37,6 +37,7 @@ Skills (reusable prompts for common tasks) live in `docs/skills/`. Reference one
 | Rebuild backend | `docker compose up -d --build backend` |
 | Rebuild all (dev) | `docker compose up -d --build` |
 | Rebuild all (prod, with caching) | `docker compose -f docker-compose.yaml up -d --build` |
+| Pull latest on prod (with submodules) | `git pull --recurse-submodules` |
 
 ## Session wrap-up
 - When the user says "thanks", "good job", or otherwise signals the end of a session, invoke the `wrap-up` skill.
